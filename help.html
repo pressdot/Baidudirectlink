@@ -1,0 +1,168 @@
+<!doctype html>
+<html>
+  <head>
+  	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>百度网盘直链分享平台</title>
+	<meta name="description" content="百度网盘直链分享平台，可以生成永久百度网盘直链，可以用于图片外链、视频外链、音乐外链，并且可以突破下载速度限制">
+	<meta name="keywords" content="百度网盘直链分享平台,百度网盘直链生成,百度云不限速下载,网盘直链,音乐外链,图片外链">
+	<link href="assets/css/bootstrap.min.css" rel="stylesheet">
+	<link href="assets/css/bootswatch.min.css" rel="stylesheet">
+	<link href="assets/css/style.css" rel="stylesheet">
+	<link href="assets/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
+	<script src="assets/js/jquery.min.js"></script>
+	<script src="assets/js/bootstrap.min.js"></script>
+	<script src="assets/js/fileinput.min.js" type="text/javascript"></script>
+	<script src="assets/js/ZeroClipboard/ZeroClipboard.min.js" type="text/javascript"></script>
+	<script src="assets/js/main.js" type="text/javascript"></script>
+ </head>
+ <body>
+	<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+	<div class="container">
+		<div class="navbar-header">
+			<button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a href="/" class="navbar-brand">百度网盘直链分享平台</a>
+		</div>
+		<div class="navbar-collapse collapse" id="navbar-main">
+			<ul class="nav navbar-nav navbar-right">
+				<li>
+					<a href="./">首页</a>
+				</li>
+				<li class="active">
+					<a href="./help.html">帮助</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-8">
+			<h3>手动获取BDUSS的方法</h3>
+			<blockquote>1.使用 Chrome 或 Chromium 内核的浏览器
+		<br/><br/>2.打开百度首页 <a href="http://www.baidu.com" target="_blank">http://www.baidu.com/</a>
+   	    <br/><br/>3.右键，点击 <b>查看网页信息</b>
+		<br/><br/>4.确保已经登录百度，然后点击 <b>显示 Cookie 和网站数据</b>
+		<br/><br/>5.如图，依次展开 <b>passport.baidu.com</b> -> <b>Cookie</b> -> <b>BDUSS</b>
+		<br/><br/><a href="assets/img/baiduid.png" target="_blank"><img src="assets/img/baiduid.png"></a>
+		<br/><br/>6.按下 Ctrl+A 全选，然后复制并输入到上面的表单即可
+    <br/><br/>请注意，一旦退出登录，可能导致 BDUSS 失效，因此建议在隐身模式下登录
+
+			</blockquote>
+				</div>
+				<div class="col-md-4">
+					<div style="position: relative;margin-bottom: 10px;">
+<!-- 将此标记放在您希望显示 添加到百度首页 按钮的位置 -->
+<div class="bdaddtocitebtn"></div>
+<a onclick="addFavorite(window.location,document.title)" href="javascript:void(0)" style="position: absolute; top: 0;right: 0;  height: 50px;" class="btn btn-lg btn-primary" type="button">
+	Ctrl+D 收藏本站
+</a>
+<script type="text/javascript"> 
+function addFavorite(sURL,sTitle) 
+{ 
+try 
+{ 
+window.external.addFavorite(sURL, sTitle); 
+} 
+catch (e) 
+{ 
+try 
+{ 
+window.sidebar.addPanel(sTitle, sURL, ""); 
+} 
+catch (e) 
+{ 
+alert("加入收藏失败，请使用Ctrl+D进行添加"); 
+} 
+} 
+} 
+</script>
+</div>
+<script id="bdaddtocite_shell"></script>
+<script>
+	var bdShare_config_addtocite = {
+		"size":"medium"
+		,"uid":"2146924"
+	};
+	$(function(){
+		document.getElementById("bdaddtocite_shell").src="http://bdimg.share.baidu.com/static/js/addtocite_shell.js?t=" + Math.ceil(new Date()/3600000);
+	});
+</script>
+<script>
+	window._bd_share_config = {
+		common : {
+			bdText : document.title,
+			bdDesc : document.title,
+			bdUrl : window.location.url
+		},
+		share : [{
+			"bdSize" : 48
+		}],
+		slide : [{
+			bdImg : 2,
+			bdPos : "right",
+			bdTop : 100
+		}]
+	}
+	if (!navigator['userAgent']['match'](/(iPhone|iPod|Android|ios|Nokia|Black Berry|MIDP|Phone)/i)) {
+		with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+	}
+</script>
+<div class="panel panel-primary">
+<div class="panel-heading"><h3 class="panel-title">本工具特点</h3></div>
+<li class="list-group-item">●生成的链接可以直接下载文件</li>
+<li class="list-group-item">●无视百度网盘分享被和谐问题</li>
+<li class="list-group-item">●可直接下载大文件无需云管家</li>
+<li class="list-group-item">●可破解百度网盘下载限速问题</li>
+</div>				</div>
+			</div>
+		</div>
+
+	<style>
+	#footer{
+		border-top: 1px solid #eee;
+		color: #888;
+		line-height: 1.6;
+		padding: 40px 0 0 0;
+		vertical-align: top;
+	}
+</style>
+<footer id="footer">
+	<div class="container">
+		<div class="row inner hidden-xs">
+			<dl class="col-sm-2 site-link">
+				<dt>网站相关</dt>
+				<dd><a href="#">关于/声明</a></dd>
+				<dd><a href="#">帮助答疑</a></dd>
+				<dd><a href="#">更新日志</a></dd>
+			</dl>
+			<dl class="col-sm-2 site-link">
+				<dt>友情链接</dt>
+				<dd><a target="_blank" href="http://tool.cccyun.cc/">彩虹工具网</a></dd>
+				<dd><a target="_blank" href="http://pan.cccyun.cc/">彩虹云存储</a></dd>
+				<dd><a target="_blank" href="http://blog.cccyun.cc/">缤纷彩虹天地</a></dd>
+				<dd><a target="_blank" href="http://www.cccyun.cc/">彩虹网址导航</a></dd>
+			</dl>
+			<dl class="col-sm-2 site-link">
+				<dt>关注我们</dt>
+				<dd> <a href="http://wpa.qq.com/msgrd?v=3&uin=1277180438&site=qq&menu=yes" target="_blank"> QQ:1277180438
+					</a>
+				</dd>
+			</dl>
+			<dl id="license" class="col-sm-4 site-link">
+				<dt>声明</dt>
+				<dd>本网站仅用于百度网盘直链生成技术交流研究，用户使用本工具生成的分享链接，
+					本服务器均不保存，也不提供传播等功能, 对此工具的非法使用概不负责。
+				</dd>
+			</dl>
+		</div>
+	</div>
+</footer>
+	</body>
+</html>

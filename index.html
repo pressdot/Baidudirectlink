@@ -1,0 +1,255 @@
+<!doctype html>
+<html>
+  <head>
+  	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>百度网盘直链分享平台</title>
+	<meta name="description" content="百度网盘直链分享平台，可以生成永久百度网盘直链，可以用于图片外链、视频外链、音乐外链，并且可以突破下载速度限制">
+	<meta name="keywords" content="百度网盘直链分享平台,百度网盘直链生成,百度云不限速下载,网盘直链,音乐外链,图片外链">
+	<link href="assets/css/bootstrap.min.css" rel="stylesheet">
+	<link href="assets/css/bootswatch.min.css" rel="stylesheet">
+	<link href="assets/css/style.css" rel="stylesheet">
+	<link href="assets/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
+	<script src="assets/js/jquery.min.js"></script>
+	<script src="assets/js/bootstrap.min.js"></script>
+	<script src="assets/js/fileinput.min.js" type="text/javascript"></script>
+	<script src="assets/js/ZeroClipboard/ZeroClipboard.min.js" type="text/javascript"></script>
+	<script src="assets/js/main.js" type="text/javascript"></script>
+ </head>
+ <body>
+	<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+	<div class="container">
+		<div class="navbar-header">
+			<button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a href="/" class="navbar-brand">百度网盘直链分享平台</a>
+		</div>
+		<div class="navbar-collapse collapse" id="navbar-main">
+			<ul class="nav navbar-nav navbar-right">
+				<li class="active">
+					<a href="./">首页</a>
+				</li>
+				<li>
+					<a href="./help.html">帮助</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-8">
+				
+	<h2>生成百度网盘文件下载直链</h2>
+	<hr class="colorgraph">
+	<form id="form1">
+		<div class="input-group">
+			<div class="input-group-addon">BDUSS</div>
+			<input id="bduss" type="text" placeholder="请输入百度BDUSS" onkeydown="if(event.keyCode==13){$('#creatlink').click()}" class="form-control">
+		</div><br/>
+		<div class="input-group">
+			<div class="input-group-addon">文件路径</div>
+			<input id="path" type="text" placeholder="网盘文件路径，以/开头" onkeydown="if(event.keyCode==13){$('#creatlink').click()}" class="form-control">
+		</div><br/>
+		<button id="creatlink" class="btn btn-primary btn-block" type="button">立即生成</button>
+	</form>
+	<br/>
+	<div id="result"></div>
+	<div class="alert alert-info">
+<h4>使用说明：</h4>
+<p><strong>BDUSS获取方法：</strong>（以下方法选一种即可）<br/>
+① BUDSS在线获取：<a href="http://tool.cccyun.cc/tool/bduss/" target="_blank">点击进入</a><br/>
+② Windows平台获取BUDSS的软件：<a href="./get_bduss.exe">点击下载</a><br/>
+③ Chrome浏览器手动查看BDUSS <a href="help.html">查看教程</a></p>
+<p><strong>文件路径填写说明：</strong><br/>
+文件路径可以在百度网盘文件管理页面看到，必须填写以/开头的绝对路径，如果路径填写错误将无法生成直链。<br/>例如你将一个 “我的应用.apk” 上传到百度网盘根目录，则只需要填写 “/我的应用.apk” 即可。</p>
+	</div>
+	<div style="margin-top: 20px">
+	<hr />
+	<h2>留言</h2>
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="wangpan" data-title="种子编辑器" data-url="bteditor.sinaapp.com"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+		var duoshuoQuery = {short_name:"bteditor"};
+		$(document).ready(function(){
+			var ds = document.createElement('script');
+			ds.type = 'text/javascript';ds.async = true;
+			ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+			ds.charset = 'UTF-8';
+			(document.getElementsByTagName('head')[0]
+				|| document.getElementsByTagName('body')[0]).appendChild(ds);
+		});
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+<script>
+var bduss,path;
+$(document).ready(function(){
+	$("#creatlink").click(function(){
+		bduss=$("#bduss").val();
+		path=$("#path").val();
+		if(bduss=='' || path==''){alert('请确保每项不能为空！');return false;}
+		$('#result').hide();
+		$('#creatlink').html('Loading');
+		$.ajax({
+			type : "POST",
+			url : "do.php?act=creat",
+			data : {bduss:bduss,path:path},
+			dataType : 'json',
+			success : function(data) {
+				if(data.code == 0){
+					Setcookie ('bduss', bduss);
+					$('#result').hide();
+					$('#result').html('<div class="alert alert-success"><img src="assets/img/ico_success.png">&nbsp;生成下载直链成功！<br/><p><input id="url" type="text" class="form-control" value="'+data.download+'"></p><p style="text-align:center;"><button id="copylink" data-clipboard-text="'+data.download+'" class="btn btn-success" type="button">复制链接</button>&nbsp;<button id="openlink" class="btn btn-warning" type="button" onclick="window.open(\''+data.download+'\');">直接下载</button></p></div>');
+					$("#result").slideDown();
+
+					//复制到剪贴板
+					var clip = new ZeroClipboard( document.getElementById("copylink"));
+					clip.on( 'aftercopy', function(event) {
+					   alert("复制成功！");
+					} );
+				}else{
+					$('#result').hide();
+					$('#result').html('<div class="alert alert-warning"><img src="assets/img/ico_tip.png">&nbsp;生成下载直链失败！&nbsp;'+data.msg+'</div>');
+					$("#result").slideDown();
+				}
+				$('#creatlink').html('立即生成');
+			} 
+		});
+	});
+	var bduss=getCookie('bduss');
+	if(bduss!=''){
+		$("#bduss").val(bduss);
+		$.ajax({
+			type : "POST",
+			url : "do.php?act=list",
+			data : {bduss:bduss},
+			dataType : 'json',
+			success : function(data) {
+				if(data.code == 0){
+					$.each(data.data, function(i, item){
+					$('#list').append('<li class="list-group-item"><a href="'+item.download+'" target="_blank" title="'+item.name+'">'+item.name+'</a></li>');
+					});
+				}
+			}
+		});
+	}
+});
+
+</script>
+</div>
+				<div class="col-md-4">
+					<div style="position: relative;margin-bottom: 10px;">
+<!-- 将此标记放在您希望显示 添加到百度首页 按钮的位置 -->
+<div class="bdaddtocitebtn"></div>
+<a onclick="addFavorite(window.location,document.title)" href="javascript:void(0)" style="position: absolute; top: 0;right: 0;  height: 50px;" class="btn btn-lg btn-primary" type="button">
+	Ctrl+D 收藏本站
+</a>
+<script type="text/javascript"> 
+function addFavorite(sURL,sTitle) 
+{ 
+try 
+{ 
+window.external.addFavorite(sURL, sTitle); 
+} 
+catch (e) 
+{ 
+try 
+{ 
+window.sidebar.addPanel(sTitle, sURL, ""); 
+} 
+catch (e) 
+{ 
+alert("加入收藏失败，请使用Ctrl+D进行添加"); 
+} 
+} 
+} 
+</script>
+</div>
+<script id="bdaddtocite_shell"></script>
+<script>
+	var bdShare_config_addtocite = {
+		"size":"medium"
+		,"uid":"2146924"
+	};
+	$(function(){
+		document.getElementById("bdaddtocite_shell").src="http://bdimg.share.baidu.com/static/js/addtocite_shell.js?t=" + Math.ceil(new Date()/3600000);
+	});
+</script>
+<script>
+	window._bd_share_config = {
+		common : {
+			bdText : document.title,
+			bdDesc : document.title,
+			bdUrl : window.location.url
+		},
+		share : [{
+			"bdSize" : 48
+		}],
+		slide : [{
+			bdImg : 2,
+			bdPos : "right",
+			bdTop : 100
+		}]
+	}
+	if (!navigator['userAgent']['match'](/(iPhone|iPod|Android|ios|Nokia|Black Berry|MIDP|Phone)/i)) {
+		with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+	}
+</script>
+<div class="panel panel-primary">
+<div class="panel-heading"><h3 class="panel-title">本工具特点</h3></div>
+<li class="list-group-item">●生成的链接可以直接下载文件</li>
+<li class="list-group-item">●无视百度网盘分享被和谐问题</li>
+<li class="list-group-item">●可直接下载大文件无需云管家</li>
+<li class="list-group-item">●可破解百度网盘下载限速问题</li>
+</div>
+<div class="panel panel-success">
+<div class="panel-heading"><h3 class="panel-title">已生成的文件直链</h3></div>
+<div id="list"></div>
+</div>
+				</div>
+			</div>
+		</div>
+	<style>
+	#footer{
+		border-top: 1px solid #eee;
+		color: #888;
+		line-height: 1.6;
+		padding: 40px 0 0 0;
+		vertical-align: top;
+	}
+</style>
+<footer id="footer">
+	<div class="container">
+		<div class="row inner hidden-xs">
+			<dl class="col-sm-2 site-link">
+				<dt>网站相关</dt>
+				<dd><a href="#">关于/声明</a></dd>
+				<dd><a href="#">帮助答疑</a></dd>
+				<dd><a href="#">更新日志</a></dd>
+			</dl>
+			<dl class="col-sm-2 site-link">
+				<dt>友情链接</dt>
+				<dd><a target="_blank" href=""> </a></dd>
+				<dd><a target="_blank" href=""> </a></dd>
+				<dd><a target="_blank" href=""> </a></dd>
+			</dl>
+			
+			<dl id="license" class="col-sm-4 site-link">
+				<dt>声明</dt>
+				<dd>本网站仅用于百度网盘直链生成技术交流研究，用户使用本工具生成的分享链接，
+					本服务器均不保存，也不提供传播等功能, 对此工具的非法使用概不负责。
+				</dd>
+			</dl>
+		</div>
+	</div>
+</footer>
+	</body>
+</html>
